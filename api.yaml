@@ -1,0 +1,46 @@
+# kubernetes-fastapi LoadBalancer Service
+# Enables the pods in a deployment to be accessible from outside the cluster
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-server-svc
+spec:
+  selector:
+    app: go-server
+  ports:
+    - protocol: "TCP"
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
+
+---
+# kf-api Deployment
+# Defines the deployment of the app running in a pod on any worker node
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-server
+  labels:
+    app: go-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go-server
+  template:
+    metadata:
+      labels:
+        app: go-server
+    spec:
+      containers:
+        - name: go-server
+          image: 027306934621.dkr.ecr.eu-west-1.amazonaws.com/go-server-repo:latest
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: Always
+          resources:
+            # You must specify requests for CPU to autoscale
+            # based on CPU utilization
+            requests:
+              cpu: "250m"
+              
