@@ -43,9 +43,9 @@ The Image is then exported to an ECR repo which will version and store it.
 Once the cluster is running and the Image is stored in the cloud, then we can use the Kubernetes yaml files to deploy the jobs to the cluster using a namespace.
 When we want to test the implementation, we can use the proxy to test locally.
 ```
+### Discussion
+##### CICD for future reference
 
-### CICD for future reference
-```
 1. A gitlab repository for versioning and source control.
     a. We would need to control the versions of plugins, software and internal tools deployed
     b. We would also need to control the core part of the application deployed.
@@ -55,19 +55,19 @@ When we want to test the implementation, we can use the proxy to test locally.
 5. Then the final step, using the designed infrastuture as an example, is to just alter the deployed image version.
 6. The process should be idempotent so that if the same process can be executed multiple times and the result comes out the same.
 7. It should also provide a known state, such that it can be deployed out of sequence of versions, and with little changes be functional.
-```
 
-### Rolling back a CICD Change
-```
+
+##### Rolling back a CICD Change
+
 1. The CICD pipeline should simply be able to rollback to another version.
 2. In an environment that uses images containing their application, considering that the images have been versioned, it might be a case where re-running the image pipeline wont be nessisary but re-running the deployment pipeline would. In the case of the above application, editing the deployment yaml with a specific version will deploy that version of the image.
-```
 
-### Futher improvements
-```
+
+##### Futher improvements
+
 1. Control plugin and software versions in terraform. (not just immediately pulling latest)
 2. Create a makefile to simplfy the deployment pattern
 3. Create a CICD pipeline to auto build the image once code is pushed to the gitlab repo.
 4. Add options for better monitoring.
 5. Better tagging too would be a good idea.
-```
+
