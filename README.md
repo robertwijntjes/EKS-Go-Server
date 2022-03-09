@@ -47,8 +47,8 @@ When we want to test the implementation, we can use the proxy to test locally.
 ##### CICD for future reference
 
 1. A gitlab repository for versioning and source control.
-    a. We would need to control the versions of plugins, software and internal tools deployed
-    b. We would also need to control the core part of the application deployed.
+    1. We would need to control the versions of plugins, software and internal tools deployed
+    2. We would also need to control the core part of the application deployed.
 2. Using Gitlab CICD we can create different stages in which the code base must pass through in order to be deployed.
 3. In these different stages, we can conduct some testing to assure that the steps have succeeeded.
 4. Once it has passed through these stages, the final built image can be deployed to the cloud repo.
